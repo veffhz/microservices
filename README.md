@@ -1,4 +1,4 @@
-# microservices
+# Web-блог reddit (Microservices)
 
 ### Сборка контейнеров с приложением
 
@@ -27,6 +27,9 @@ docker run -d --network=reddit \
 docker run -d --network=reddit \
 -p 9292:9292 <your-login>/ui:1.0
 
+
 ### Проверить запуск
+
+Открыть в браузере ссылку http://адрес_хоста:9292
 
 Написать пост
