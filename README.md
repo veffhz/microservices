@@ -4,7 +4,7 @@
 
 docker pull mongo:latest
 
-docker build -t <your-login>/post:1.0 ./post-py
+docker build -t 'your-login'/post:1.0 ./post-py
 
 docker build -t <your-login>/comment:1.0 ./comment
 
