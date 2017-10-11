@@ -1,4 +1,4 @@
-# Web-блог reddit (Microservices)
+# Web-блог reddit (microservices)
 
 ### Сборка контейнеров с приложением
 
@@ -8,7 +8,7 @@ docker build -t <your-login>/post:1.0 ./post-py
 
 docker build -t <your-login>/comment:1.0 ./comment
 
-docker build -t <your-login>/ui:1.0 ./ui
+docker build -t <your-login>/ui:1.0 ./ui (или контейнер с меньшим размером на базе alpine ./ui-alpine)
 
 
 ### Запуск контейнеров с приложением
