@@ -10,6 +10,8 @@ docker build -t <your-login>/comment:1.0 ./comment
 
 docker build -t <your-login>/ui:1.0 ./ui
 
+(или контейнер с меньшим размером на базе alpine ./ui-alpine)
+
 
 ### Запуск контейнеров с приложением
 
