@@ -1,4 +1,4 @@
-# Web-блог reddit (Microservices)
+# Web-блог reddit (microservices)
 
 ### Сборка контейнеров с приложением
 
