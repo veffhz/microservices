@@ -34,6 +34,7 @@ docker-compose up -d
 
 docker-compose ps
 
+(необходим файл .env с переменными, пример env_example)
 
 ### Проверить запуск
 
