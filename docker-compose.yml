@@ -10,24 +10,29 @@ services:
           - post_db
           - comment_db
   ui:
-    build: ./ui
     image: ${USERNAME}/ui:${UI_APP_IMAGE_VER}
     ports:
       - ${PORT_PUMA}:9292/tcp
     networks:
       - front_net
   post:
-    build: ./post-py
     image: ${USERNAME}/post:${POST_APP_IMAGE_VER}
     networks:
       - front_net
       - back_net
   comment:
-    build: ./comment
     image: ${USERNAME}/comment:${COMMENT_APP_IMAGE_VER}
     networks:
       - front_net
       - back_net
+  prometheus:
+    image: ${USER_NAME}/prometheus
+    ports:
+      - '9090:9090'
+    networks:
+      - front_net
+      - back_net
+
 volumes:
   post_db:
 
