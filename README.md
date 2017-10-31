@@ -28,6 +28,14 @@ docker run -d --network=reddit \
 -p 9292:9292 `your-login`/ui:1.0
 
 
+### Запуск контейнеров с помощью docker compose
+
+docker-compose up -d
+
+docker-compose ps
+
+(необходим файл .env с переменными, пример env_example)
+
 ### Проверить запуск
 
 Открыть в браузере ссылку http://адрес_хоста:9292
