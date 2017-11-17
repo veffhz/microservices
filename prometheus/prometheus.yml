@@ -25,7 +25,12 @@ scrape_configs:
       - targets:
         - 'node-exporter:9100'
 
-  - job_name: 'cadvisor'
+  - job_name: 'mongodb'
+    static_configs:
+      - targets:
+        - 'mongodb-exporter:9001'
+
+- job_name: 'cadvisor'
     static_configs:
       - targets:
         - 'cadvisor:8080'
@@ -41,3 +46,4 @@ alerting:
       static_configs:
         - targets:
           - "alertmanager:9093"
+
