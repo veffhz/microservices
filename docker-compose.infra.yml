@@ -27,7 +27,7 @@ services:
       - back_net
 
   mongodb-exporter:
-    image: ${MONGO_EXPORTER_SRC}/mongodb_exporter:${MONGO_EXPORTER_VER}
+    image: ${USER_NAME}/mongodb_exporter:${MONGO_EXPORTER_VER}
     environment:
       - MONGODB_URL=mongodb://mongo_db:27017
     networks:
