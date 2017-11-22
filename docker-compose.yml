@@ -4,6 +4,10 @@ services:
 
   mongo_db:
     image: mongo:${MONGO_IMAGE_VER}
+    deploy:
+      placement:
+        constraints:
+          - node.labels.reliability == high
     volumes:
       - post_db:/data/db
     networks:
@@ -13,93 +17,83 @@ services:
           - comment_db
 
   ui:
-    image: ${USERNAME}/ui:${UI_APP_IMAGE_VER}
+    image: ${USER_NAME}/ui:${UI_APP_IMAGE_VER}
+    environment:
+      - ENV=DEV
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 3s
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 150M
+      update_config:
+        delay: 5s
+        failure_action: rollback
+        parallelism: 1
+      mode: replicated
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
     ports:
       - ${PORT_PUMA}:9292/tcp
     networks:
       - front_net
 
   post:
-    image: ${USERNAME}/post:${POST_APP_IMAGE_VER}
+    image: ${USER_NAME}/post:${POST_APP_IMAGE_VER}
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 1s
+        max_attempts: 10
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 300M
+      update_config:
+        delay: 10s
+        failure_action: rollback
+        parallelism: 2
+      mode: replicated
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
     networks:
       - front_net
       - back_net
 
   comment:
-    image: ${USERNAME}/comment:${COMMENT_APP_IMAGE_VER}
+    image: ${USER_NAME}/comment:${COMMENT_APP_IMAGE_VER}
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 1s
+        max_attempts: 10
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 300M
+      update_config:
+        delay: 10s
+        failure_action: rollback
+        parallelism: 2
+      mode: replicated
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
     networks:
       - front_net
       - back_net
 
-  prometheus:
-    image: ${USER_NAME}/prometheus
-    ports:
-      - '9090:9090'
-    networks:
-      - front_net
-      - back_net
-
-  node-exporter:
-    image: prom/node-exporter:${NODE_EXPORTER_VER}
-    user: root
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
-    networks:
-      - back_net
-
-  mongodb-exporter:
-    image: ${MONGO_EXPORTER_SRC}/mongodb_exporter:${MONGO_EXPORTER_VER}
-    environment:
-      - MONGODB_URL=mongodb://mongo_db:27017
-    networks:
-      - back_net
-
-  cadvisor:
-    image: google/cadvisor:latest
-    volumes:
-      - '/:/rootfs:ro'
-      - '/var/run:/var/run:rw'
-      - '/sys:/sys:ro'
-      - '/var/lib/docker/:/var/lib/docker:ro'
-    ports:
-      - '8080:8080'
-    networks:
-      - back_net
-
-  grafana:
-    image: grafana/grafana
-    volumes:
-      - grafana_data:/var/lib/grafana
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=secret
-    depends_on:
-      - prometheus
-    ports:
-      - 3000:3000
-    networks:
-      - front_net
-      - back_net
-
-  alertmanager:
-    image: ${USER_NAME}/alertmanager
-    command:
-      - '-config.file=/etc/alertmanager/config.yml'
-    ports:
-      - 9093:9093
-    networks:
-      - back_net
-      
 
 volumes:
   post_db:
-  grafana_data:
 
 networks:
   back_net:
