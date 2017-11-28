@@ -20,3 +20,15 @@ docker-compose ps
 ### Запуск контейнеров в docker swarm (infra в отдельном файле docker-compose.infra)
 docker stack deploy --compose-file=<(docker-compose -f docker-compose.infra.yml \
  -f docker-compose.yml config 2>/dev/null)  DEV
+
+
+### Deployment-манифесты приложений:
+
+microservices/kubernetes/post-deployment.yml
+microservices/kubernetes/comment-deployment.yml
+microservices/kubernetes/ui-deployment.yml
+microservices/kubernetes/mongo-deployment.yml
+
+### Прохождение Kubernetes the hard way (https://github.com/kelseyhightower/kubernetes-the-hard-way)
+
+microservices/kubernetes/kubernetes_the_hard_way
