@@ -25,10 +25,16 @@ docker stack deploy --compose-file=<(docker-compose -f docker-compose.infra.yml 
 ### Deployment-манифесты приложений:
 
 microservices/kubernetes/post-deployment.yml
+
 microservices/kubernetes/comment-deployment.yml
+
 microservices/kubernetes/ui-deployment.yml
+
 microservices/kubernetes/mongo-deployment.yml
 
-### Прохождение Kubernetes the hard way (https://github.com/kelseyhightower/kubernetes-the-hard-way)
+
+#### Прохождение Kubernetes the hard way 
+
+https://github.com/kelseyhightower/kubernetes-the-hard-way
 
 microservices/kubernetes/kubernetes_the_hard_way
