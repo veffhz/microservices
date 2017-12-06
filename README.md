@@ -38,3 +38,19 @@ microservices/kubernetes/mongo-deployment.yml
 https://github.com/kelseyhightower/kubernetes-the-hard-way
 
 microservices/kubernetes/kubernetes_the_hard_way
+
+
+#### Деплой reddit в кластер Kubernetes
+
+gcloud container clusters get-credentials $cluster --zone $zone --project $project 
+(или minikube start для локального кластера)
+
+cоздание dev namespace:
+kubectl apply -f dev-namespace.yml
+
+деплой приложения в namespace dev:
+kubectl apply -f ../kube_reddit -n dev
+
+
+
+
