@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
 
-  mongo:
+  mongo_db:
     image: mongo:${MONGO_IMAGE_VER}
     deploy:
       placement:

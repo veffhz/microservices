@@ -29,7 +29,7 @@ services:
   mongodb-exporter:
     image: ${USER_NAME}/mongodb_exporter:${MONGO_EXPORTER_VER}
     environment:
-      - MONGODB_URL=mongodb://mongo:27017
+      - MONGODB_URL=mongodb://mongo_db:27017
     networks:
       - back_net
 
