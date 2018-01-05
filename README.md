@@ -59,5 +59,17 @@ kubectl apply -f dev-namespace.yml
 kubectl apply -f ../kube_reddit -n dev
 
 
+### Helm
 
+установка:
+
+kubectl apply -f tiller.yml
+
+запуск:
+
+helm init --service-account tiller
+
+проверка:
+
+kubectl get pods -n kube-system --selector app=helm
 
