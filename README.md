@@ -65,7 +65,7 @@ kubectl apply -f ../kube_reddit -n dev
 
 kubectl apply -f tiller.yml
 
-запуск:
+запуск: 
 
 helm init --service-account tiller
 
@@ -73,9 +73,9 @@ helm init --service-account tiller
 
 kubectl get pods -n kube-system --selector app=helm
 
-установка chart:
+установка chart: 
 
-helm install <chart-path> <release-name>
+helm install `<chart-path>` `<release-name>`
 
 проверка: helm ls
 
@@ -97,7 +97,7 @@ helm install --name gitlab . -f values.yaml
 
 get external-ip: kubectl get service -n nginx-ingress nginx
 
-add to hosts: echo "<external-ip> gitlab-gitlab staging production" >> /etc/hosts
+add to hosts: echo "`<external-ip>` gitlab-gitlab staging production" >> /etc/hosts
 
 open: http://gitlab-gitlab
 
