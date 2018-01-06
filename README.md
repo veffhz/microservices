@@ -73,3 +73,33 @@ helm init --service-account tiller
 
 kubectl get pods -n kube-system --selector app=helm
 
+установка chart:
+
+helm install <chart-path> <release-name>
+
+проверка: helm ls
+
+
+### Установка Gitlab Omnibus
+
+helm repo add gitlab https://charts.gitlab.io
+
+helm fetch gitlab/gitlab-omnibus --version 0.1.36 --untar
+
+cd gitlab-omnibus
+
+кастомизируем gitlab-omnibus/values.yaml, 
+gitlab-omnibus/templates/gitlab/gitlab-svc.yaml,
+gitlab-omnibus/templates/gitlab-config.yaml,
+gitlab-omnibus/templates/ingress/gitlab-ingress.yaml
+
+helm install --name gitlab . -f values.yaml
+
+get external-ip: kubectl get service -n nginx-ingress nginx
+
+add to hosts: echo "<external-ip> gitlab-gitlab staging production" >> /etc/hosts
+
+open: http://gitlab-gitlab
+
+
+
