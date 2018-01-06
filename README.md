@@ -88,10 +88,11 @@ helm fetch gitlab/gitlab-omnibus --version 0.1.36 --untar
 
 cd gitlab-omnibus
 
-кастомизируем gitlab-omnibus/values.yaml, 
-gitlab-omnibus/templates/gitlab/gitlab-svc.yaml,
-gitlab-omnibus/templates/gitlab-config.yaml,
-gitlab-omnibus/templates/ingress/gitlab-ingress.yaml
+customize values.yaml in gitlab-omnibus/
+ 
+customize files in gitlab-omnibus/templates/: 
+
+gitlab/gitlab-svc.yaml, gitlab-config.yaml, ingress/gitlab-ingress.yaml
 
 helm install --name gitlab . -f values.yaml
 
