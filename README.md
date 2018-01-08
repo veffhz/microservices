@@ -59,6 +59,7 @@ kubectl apply -f dev-namespace.yml
 kubectl apply -f ../kube_reddit -n dev
 
 
+
 ### Helm
 
 установка:
@@ -101,6 +102,51 @@ get external-ip: kubectl get service -n nginx-ingress nginx
 add to hosts: echo "`<external-ip>` gitlab-gitlab staging production" >> /etc/hosts
 
 open: http://gitlab-gitlab
+
+
+
+
+### Развертывание Prometheus (2.0) и Grafana в k8s
+
+
+#### chart reddit 
+
+helm upgrade reddit-test ./reddit --install
+
+helm upgrade production --namespace production ./reddit --install
+
+helm upgrade staging --namespace staging ./reddit --install
+
+
+#### prometheus
+
+helm install stable/nginx-ingress --name nginx
+
+kubectl get svc (get `<external-ip>`)
+
+add to hosts: echo "`<external-ip>` reddit-prometheus reddit-grafana" >> /etc/hosts
+
+cd microservices/kubernetes/charts/prometheus 
+
+helm upgrade prom . -f custom_values.yml --install
+
+go http://reddit-prometheus
+
+
+#### grafana
+
+helm upgrade --install grafana stable/grafana \
+--set "server.adminPassword=admin" \
+--set "server.service.type=NodePort" \
+--set "server.ingress.enabled=true" \
+--set "server.ingress.hosts={reddit-grafana}"
+
+go http://reddit-grafana (admin/admin)
+
+prometheus datasource: http://prom-prometheus-server
+
+import dashboard: microservices/dashboards
+
 
 
 
