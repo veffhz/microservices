@@ -1,0 +1,20 @@
+post:
+  image:
+    repository: veffhz/post
+    tag: latest
+    service:
+      externalPort: 5000
+
+comment:
+  image:
+    repository: veffhz/comment
+    tag: latest
+  service:
+    externalPort: 9292
+
+ui:
+  image:
+    repository: veffhz/ui
+    tag: latest
+    service:
+      externalPort: 9292
