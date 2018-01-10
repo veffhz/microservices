@@ -59,5 +59,48 @@ kubectl apply -f dev-namespace.yml
 kubectl apply -f ../kube_reddit -n dev
 
 
+### Helm
+
+установка:
+
+kubectl apply -f tiller.yml
+
+запуск: 
+
+helm init --service-account tiller
+
+проверка:
+
+kubectl get pods -n kube-system --selector app=helm
+
+установка chart: 
+
+helm install `<chart-path>` `<release-name>`
+
+проверка: helm ls
+
+
+### Установка Gitlab Omnibus
+
+helm repo add gitlab https://charts.gitlab.io
+
+helm fetch gitlab/gitlab-omnibus --version 0.1.36 --untar
+
+cd gitlab-omnibus
+
+customize values.yaml in gitlab-omnibus/
+ 
+customize files in gitlab-omnibus/templates/: 
+
+gitlab/gitlab-svc.yaml, gitlab-config.yaml, ingress/gitlab-ingress.yaml
+
+helm install --name gitlab . -f values.yaml
+
+get external-ip: kubectl get service -n nginx-ingress nginx
+
+add to hosts: echo "`<external-ip>` gitlab-gitlab staging production" >> /etc/hosts
+
+open: http://gitlab-gitlab
+
 
 
